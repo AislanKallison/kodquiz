@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import sys
 
 app = Flask(__name__)
 app.secret_key = 'kodland_secret'
 
-# ====================== PERGUNTAS DO QUIZ ======================
+# Perguntas do quiz
 questions = [
     {"id": 1, "question": "Qual comando imprime algo na tela?", 
      "options": ["a) print()", "b) echo()", "c) console.log()", "d) display()"], 
@@ -32,39 +31,6 @@ questions = [
      "correct": "a", "explanation": "O comando é import."}
 ]
 
-# ====================== QUIZ NO TERMINAL ======================
-def run_terminal_quiz():
-    print("\n" + "="*55)
-    print("   🎯  KODQUIZ - MODO TERMINAL")
-    print("="*55)
-    
-    score = 0
-    for q in questions:
-        print(f"\nPergunta {q['id']}: {q['question']}")
-        for option in q['options']:
-            print(option)
-        
-        answer = input("\nSua resposta (a/b/c/d): ").strip().lower()
-        
-        if answer == q['correct']:
-            print("✅ Correto!\n")
-            score += 1
-        else:
-            print(f"❌ Errado! Resposta correta: {q['correct']}")
-            print(f"   {q['explanation']}\n")
-    
-    print("="*55)
-    print(f"RESULTADO FINAL: {score}/{len(questions)} acertos")
-    if score == 8:
-        print("🏆 Parabéns! Você gabaritou o quiz!")
-    elif score >= 6:
-        print("👏 Muito bom!")
-    else:
-        print("📚 Continue estudando Python!")
-    print("="*55 + "\n")
-
-
-# ====================== ROTAS WEB ======================
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -101,26 +67,5 @@ def results():
     results = session.get('results', [])
     return render_template('results.html', score=score, total=total, results=results)
 
-
-# ====================== EXECUÇÃO ======================
 if __name__ == '__main__':
-    # Pergunta simples: quer rodar no terminal ou na web?
-    print("KodQuiz iniciado!")
-    print("Como você quer rodar?")
-    print("1 → Apenas no navegador (Web)")
-    print("2 → Apenas no terminal (Texto)")
-    
-    escolha = input("\nDigite 1 ou 2: ").strip()
-
-    if escolha == "2":
-        # Roda só o quiz no terminal e termina
-        run_terminal_quiz()
-        print("Programa finalizado.")
-        sys.exit(0)
-    
-    else:
-        # Roda o servidor web (padrão)
-        print("\n🚀 Iniciando o servidor web...")
-        print("Acesse no navegador: http://127.0.0.1:5000")
-        print("Pressione Ctrl + C para parar\n")
-        app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(debug=True)
