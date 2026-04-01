@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+    <h1 class="display-5">Resultado do Quiz</h1>
+    <div class="mt-4">
+        <h2 class="fw-bold">{{ score }} / {{ total }}</h2>
+        <p class="lead">Você acertou {{ score }} de {{ total }} perguntas!</p>
+    </div>
+</div>
+
+<div class="mt-5">
+    {% for r in results %}
+    <div class="card mb-3 {{ 'border-success' if r.is_correct else 'border-danger' }}">
+        <div class="card-body">
+            <h6>{{ r.question }}</h6>
+            <p><strong>Sua resposta:</strong> {{ r.user_answer }}</p>
+            <p><strong>Resposta correta:</strong> {{ r.correct_answer }}</p>
+            <p class="text-white-50"><em>{{ r.explanation }}</em></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ url_for('quiz') }}" class="btn btn-warning">Refazer o Quiz</a>
+    <a href="{{ url_for('index') }}" class="btn btn-outline-light ms-2">Voltar ao Início</a>
+</div>
+{% endblock %}

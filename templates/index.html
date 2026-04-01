@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="text-align: center; color: #4e54c8;">🚀 KodQuiz - Quiz de Python</h1>
+
+<div style="text-align: center; margin: 60px 20px;">
+    <p style="font-size: 1.4rem; margin-bottom: 40px;">
+        Teste seus conhecimentos de Python de forma divertida!<br>
+        Perfeito para alunos de 13 a 17 anos.
+    </p>
+    
+    <a href="{{ url_for('quiz') }}" 
+       style="background: #28a745; color: white; padding: 18px 50px; 
+              font-size: 1.3rem; text-decoration: none; border-radius: 12px;">
+        INICIAR O QUIZ AGORA
+    </a>
+</div>
+
+<p style="text-align: center; margin-top: 80px; color: #666; font-size: 0.95rem;">
+    Projeto 100% Flask • Entregue para vaga de Professor na Kodland
+</p>
+{% endblock %}
